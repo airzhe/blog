@@ -29,7 +29,7 @@ textarea:focus {
 	outline: 0;
 }
 
-.meta a{margin-right:12px;}
+.meta>a{margin-right:12px;}
 #site-header{background: url('../images/circle.png') no-repeat center top;background-size: 1600px auto;}
 #site-header .home-link{color:#141412;color: #141412;display:block;	min-height: 230px;text-decoration: none;}
 .site-title{font-size:60px;font-weight: bold;line-height: 1;margin:0;padding:58px 0 10px;}

@@ -1,5 +1,7 @@
 <?php
+require 'init.inc.php';
 include 'tpl/header.php';
+$categoryArr = $redis->sMembers('categoryIds');
 ?>
     <div class="main-content">
         <div class="breadcrumbs">
@@ -38,22 +40,24 @@ include 'tpl/header.php';
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>php</td>
-                            <td>
-                                <a href="javascript:void(0);"><i class="fa fa-edit"> </i></a>
-                                <a href="javascript:void(0);"><i class="fa fa-trash-o"></i></a>
-                            </td>
-                        </tr>
+                        <?php foreach ($categoryArr as $k=>$v): $category=$redis->hGetAll("category:$v");?>
+                            <tr>
+                                <td><?=$category['category']?></td>
+                                <td>
+                                    <a href="category_edit.php?action=update&id=<?=$category['id']?>"><i class="fa fa-edit"> </i></a>
+                                    <a href="category_edit.php?action=del&id=<?=$category['id']?>" onclick="return confirm('确定要删除吗')"><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                        <?php endforeach?>
                         </tbody>
                     </table>
                 </div>
                 <div class="tab-pane" id="add_category">
-                    <form class="form-horizontal" role="form">
+                    <form class="form-horizontal" role="form" method="post" action="category_edit.php?action=add">
                         <div class="form-group">
                             <label for="title" class="col-sm-1 control-label">名称：</label>
                             <div class="col-sm-4">
-                                <input type="test" class="form-control" id="title" required>
+                                <input type="text" name ="category" class="form-control" id="title" required>
                             </div>
                         </div>
                         <div class="form-group">

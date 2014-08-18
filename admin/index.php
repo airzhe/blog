@@ -1,4 +1,5 @@
 <?php
+    require 'init.inc.php';
     include 'tpl/header.php';
 ?>
     <div class="main-content">

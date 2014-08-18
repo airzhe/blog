@@ -237,7 +237,7 @@
              alt="Jason's Photo">
         <span class="user-info">
          <small>Welcome,</small>
-         Jason
+         <?=$_SESSION['username']?>
      </span>
 
         <i class="fa fa-sort-down"></i>
@@ -261,7 +261,7 @@
         <li class="divider"></li>
 
         <li>
-            <a href="#">
+            <a href="logout.php">
                 <i class="fa fa-power-off"></i>
                 Logout
             </a>
@@ -318,9 +318,15 @@
                 </a>
             </li>
             <li>
-                <a href="edit.php">
+                <a href="article.php">
                     <i class="fa fa-paper-plane"></i>
                     <span class="menu-text"> 添加文章 </span>
+                </a>
+            </li>
+            <li>
+                <a href="user.php">
+                    <i class="fa fa-user"></i>
+                    <span class="menu-text"> 用户管理 </span>
                 </a>
             </li>
             <li>

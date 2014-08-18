@@ -1,5 +1,7 @@
 <?php
-    include 'tpl/header.php';
+    require 'init.inc.php';
+    require 'tpl/header.php';
+    $categoryArr = $redis->sMembers('categoryIds');
 ?>
     <div class="main-content">
         <div class="breadcrumbs">
@@ -21,12 +23,12 @@
                     </small>
                 </h1>
             </div>
-            <form class="form-horizontal" role="form">
+            <form class="form-horizontal" role="form" method="post" action="article_edit.php">
                 <div class="form-group">
                     <label for="title" class="col-sm-1 control-label">标题：</label>
 
                     <div class="col-sm-6">
-                        <input type="test" class="form-control" id="title" required>
+                        <input type="test" class="form-control" id="title" name="title" required>
                     </div>
                 </div>
                 <div class="form-group">
@@ -34,7 +36,9 @@
 
                     <div class="col-sm-2">
                         <select class="form-control" name="category" id="category" required>
-                            <option value=""></option>
+                            <?php foreach ($categoryArr as $k=>$v): $category=$redis->hGetAll("category:$v");?>
+                            <option value="<?=$category['id']?>"><?=$category['category']?></option>
+                            <?php endforeach?>
                         </select>
                     </div>
                 </div>
@@ -42,24 +46,32 @@
                     <label for="label" class="col-sm-1 control-label">标签：</label>
 
                     <div class="col-sm-6">
-                        <input type="test" class="form-control" id="label">
+                        <input type="test" class="form-control" id="label" name="tags">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="datetime" class="col-sm-1 control-label">内容：</label>
                     <div class="col-sm-9">
-                        <textarea name="content" id="content" cols="30" rows="14" class="form-control" required></textarea>
+                        <textarea name="content" id="content" cols="30" rows="14" class="form-control ckeditor" required></textarea>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-1 control-label">其他：</label>
                     <span class="col-sm-1 control-label">发布日期</span>
                     <div class="col-sm-2">
-                        <input type="test" class="form-control" id="datetime">
+                        <input type="test" class="form-control" name="datetime">
                     </div>
                     <span class="col-sm-1 control-label">点击数</span>
                     <div class="col-sm-2">
-                        <input type="test" class="form-control" id="hits">
+                        <input type="test" class="form-control" name="hits">
+                    </div>
+                    <span class="col-sm-1 control-label">模板</span>
+                    <div class="col-sm-2">
+                        <select class="form-control" name="template">
+                            <?php foreach($config['templates'] as $k=>$v):?>
+                                <option value="<?=$k?>"><?=$v?></option>
+                            <?php endforeach?>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">
@@ -70,6 +82,7 @@
             </form>
         </div>
     </div>
+<script src="ckeditor/ckeditor.js"></script>
 <?php
     include 'tpl/footer.php';
 ?>
