@@ -1,5 +1,7 @@
 <?php
+include 'init.inc.php';
 include 'tpl/header.php';
+$articleIds = $redis->lRange('article:list',0,-1);
 ?>
     <div class="main-content">
         <div class="breadcrumbs">
@@ -25,17 +27,24 @@ include 'tpl/header.php';
                 <thead>
                 <tr>
                     <th>标题</th>
+                    <th>发布日期</th>
+                    <th>点击数</th>
                     <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td><a href="">这是美好的一天</a></td>
-                    <td>
-                        <a href="javascript:void(0);"><i class="fa fa-edit"> </i></a>
-                        <a href="javascript:void(0);"><i class="fa fa-trash-o"></i></a>
-                    </td>
-                </tr>
+                <?php foreach($articleIds as $v): $article = $redis->hGetAll("article:$v")?>
+                    <tr>
+                        <td><a href=""><?=$article['title']?></a></td>
+                        <td><a href=""><?=date('Y-m-d H:i',$article['datetime'])?></a></td>
+                        <td><a href=""><?=$article['hits']?></a></td>
+                        <td>
+                            <a href="article.php?action=edit&id=<?=$article['id']?>"><i class="fa fa-edit"> </i></a>
+                            <a href="article_edit.php?action=del&id=<?=$article['id']?>" onclick="return confirm('确定要删除吗')"><i class="fa fa-trash-o"></i></a>
+                        </td>
+                    </tr>
+                <?php endforeach ?>
+
                 </tbody>
             </table>
         </div>

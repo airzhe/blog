@@ -45,7 +45,7 @@ $userArr = $redis->sMembers('user');
                             <td><?=$username?></td>
                             <td>
                                 <a href="javascript:void(0);"><i class="fa fa-edit"> </i></a>
-                                <a href="edit_user.php?action=del&username=<?=$username?>" onclick="return confirm('确定要删除吗')"><i class="fa fa-trash-o"></i></a>
+                                <a href="user_edit.php?action=del&username=<?=$username?>" onclick="return confirm('确定要删除吗')"><i class="fa fa-trash-o"></i></a>
                             </td
                         </tr>
                         <?php endforeach;?>
