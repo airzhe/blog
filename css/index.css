@@ -1,0 +1,153 @@
+
+/*bootstrap*/
+.navbar{border:none;background:#f7f5e7;min-height: 45px;margin:0;border-radius:0;}
+.col-md-offset-3{margin-left:22%;}
+.col-md-6{width:56%;}
+.container{width:1120px;}
+/*bootstrap end*/
+body{background: #fff;color:#141412;}
+ul li{list-style: none;}
+h1,h2,h3,h4,h5,h6{font-family:Bitter, Georgia, serif;}
+h1{margin:33px 0;font-size: 30px;font-weight: bold;}
+i{margin-right: 3px;}
+button,
+input,
+textarea {
+	border: 2px solid #d4d0ba;
+	font-family: inherit;
+	padding: 5px;
+}
+
+input,
+textarea {
+	color: #141412;
+}
+
+input:focus,
+textarea:focus {
+	border: 2px solid #c3c0ab;
+	outline: 0;
+}
+
+.meta a{margin-right:12px;}
+#site-header{background: url('../images/circle.png') no-repeat center top;background-size: 1600px auto;}
+#site-header .home-link{color:#141412;color: #141412;display:block;	min-height: 230px;text-decoration: none;}
+.site-title{font-size:60px;font-weight: bold;line-height: 1;margin:0;padding:58px 0 10px;}
+.site-description{font:300 italic 24px "Source Sans Pro", Helvetica, sans-serif;margin:0;}
+
+.navbar ul{margin:0;padding:0;}
+.navbar ul li{display: inline-block;}
+.navbar ul li a{color:#141412;display:block;font-size: 15px;line-height: 1;padding:15px 20px;text-decoration: none;}
+.navbar .current-menu-item a{color:#bc360a;font-style:italic;}
+.navbar ul li a:hover{background:#220e10;color:#fff;}
+.navbar .search-form{padding-top:3px;}
+.navbar .search-field{background: url('../images/search-icon.png') no-repeat 5px center;height:37px;padding-left:30px;padding-right:2px;background-color:transparent;
+border:none;cursor:pointer;width:0;outline: none;
+transition:width 400ms ease,background 400ms ease;
+-webkit-transition:width 400ms ease,background 400ms ease;
+-moz-transition:width 400ms ease,background 400ms ease;
+-o-transition:width 400ms ease,background 400ms ease;
+}
+.navbar .search-field:focus{
+	cursor:text;
+	border:2px solid #d4d0ba;
+}
+/*分类*/
+.archive-header {
+	background-color: #e8e5ce;
+}
+
+.archive-title,
+.archive-meta {
+	font: 300 italic 30px "Source Sans Pro", Helvetica, sans-serif;
+	margin: 0 auto;
+	max-width: 1040px;
+	padding: 30px 0;
+	width: 100%;
+}
+/*文章*/
+.article {padding:30px 0;}
+.article header{margin-bottom: 20px;}
+.article h1{margin:0 0 5px;}
+.article h1 a{color:#141412;}
+.article h1 a:hover{color:#ea9629;}
+.article .meta a{color:#bc360a;}
+.article .meta a:hover{color:#bc360a;}
+.article .content{line-height: 24px;margin-bottom:24px;}
+.article .content a{color:#bc360a;}
+/*文章模板--音乐*/
+.format-audio {
+	background-color: #db572f;
+}
+.audio-content{
+	background: url('../images/dotted-line.png') repeat-y left top;
+	background-size: 4px 4px;
+	float: right;
+	padding-left: 35px;
+	width: 80%;
+	width: -webkit-calc(100% - 85px);
+	width:         calc(100% - 85px);
+}
+.format-audio .meta,.format-audio .meta a,.format-audio .meta a:hover{color:#fff;}
+
+/*导航*/
+.navigation.paging-navigation{padding:40px 0;background:#e8e5ce;}
+.navigation.post-navigation{padding:20px 0;}
+.navigation a {
+	color: #bc360a;
+	font-size: 22px;
+	font-style: italic;
+	font-weight: 300;
+}
+
+.navigation a:hover {
+	color: #ea9629;
+	text-decoration: none;
+}
+
+.navigation.paging-navigation .meta-nav{
+	background-color: #e63f2a;
+	border-radius: 50%;
+	color: #fff;
+	display: inline-block;
+	font-size: 26px;
+	padding: 3px 0 8px;
+	text-align: center;
+	width: 50px;
+	margin-right: 10px;
+	padding: 17px 0 23px;
+	width: 80px;
+}
+.navigation.paging-navigation a:hover .meta-nav{
+	background-color: #ea9629;
+	text-decoration: none;
+}
+/*评论*/
+.comments-title{font-style:italic;font-size: 28px;margin:25px 0;}
+.comment-list{margin:16px 0;padding:0;}
+#respond{
+	background: #f7f5e7;
+	padding:30px 0;
+}
+#respond .reply-title{font-style:italic;}
+#respond label{width:120px;padding:5px 0;}
+#respond textarea{width:100%;}
+#respond #submit{
+	background: #e05d22; /* Old browsers */
+	background: -webkit-linear-gradient(top, #e05d22 0%, #d94412 100%); /* Chrome 10+, Safari 5.1+ */
+	background:   linear-gradient(to bottom, #e05d22 0%, #d94412 100%); /* W3C */
+	border: none;
+	border-bottom: 3px solid #b93207;
+	border-radius: 2px;
+	color: #fff;
+	display: inline-block;
+	padding: 11px 24px 10px;
+	text-decoration: none;
+}
+/*页面底部*/
+#site-footer{background: #220e10;padding:30px 0 50px;color:#fff;}
+#site-footer .search-field{height:27px;padding:5px;width:200px;margin-top:20px;}
+#site-footer ul{padding:0;}
+#site-footer h3{font-style:italic; font-size:20px;margin-bottom:10px;}
+#site-footer li{padding:5px 0;}
+#site-footer a{color:#e6402a;}
