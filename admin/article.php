@@ -5,6 +5,7 @@
     if($id = (int)$_GET['id']){
         $uri = "&id=$id";
         $article = $redis->hGetAll("article:$id");
+        $article['tags'] = implode(',',$redis->sMembers("article:$id:tags"));
     }else{
         $article = array('title'=>'','category'=>0,'tags'=>'','content'=>'','datetime'=>time(),'hits'=>'','template'=>'');
     }

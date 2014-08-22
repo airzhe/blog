@@ -23,6 +23,11 @@
                 </h1>
             </div>
            welcome!
+            <span>
+                <a href="user.php">用户数：<?=$redis->sCard('user')?></a>&nbsp;&nbsp;
+                <a href="category.php">分类数：<?=$redis->sCard('categoryIds')?></a>&nbsp;&nbsp;
+                <a href="article_list.php">文章数：<?=$redis->lLen('article:list')?>
+            </span>
         </div>
     </div>
 <?php

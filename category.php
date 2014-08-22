@@ -1,41 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset='utf-8'>
-  <title>Runner的小站 - Power by HDCMS</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/font-awesome.css">
-  <link rel="stylesheet" href="css/index.css">
-</head>
-<body>
-
-  <header id="site-header">
-    <div class="container">
-      <a class="home-link" href="http://localhost/wordpress/" title="Runner的小站" rel="home">
-        <h1 class="site-title">Runner的小站</h1>
-        <h2 class="site-description">又一个WordPress站点</h2>
-      </a>
-    </div>
-    <div class="navbar">
-      <div class="container">
-        <ul class="pull-left">
-          <li><a href="index.html" >首页</a></li>
-          <li><a href="">技术</a></li>
-          <li class="current-menu-item"><a href="">生活</a></li>
-          <li><a href="">音乐</a></li>
-          <li><a href="">杂谈</a></li>
-          <li><a href="about.html">关于我</a></li>
-        </ul>
-        <form method="get" class="search-form pull-right" action="">
-          <input type="search" class="search-field" placeholder="搜索…" value="" name="s" title="搜索：">
-        </form>
-      </div>
-    </div>
-  </header>
-</div>
+<?php
+require 'init.inc.php';
+require 'tpl/header.php';
+$cid  = isset($_GET['cid'])?(int)$_GET['cid']:'';
+?>
 <header class="archive-header">
-  <h1 class="archive-title">分类目录归档：生活</h1>
+<h1 class="archive-title">分类目录归档：<?=$redis->hget("category:$cid",'category')?></h1>
 </header>
 <div class="container">
   <div class="article row">
@@ -121,59 +90,6 @@
     </div>
   </div>
 </div>
-<footer id="site-footer">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-3">
-        <form role="search" method="get" class="search-form" action="">
-          <input type="search" class="search-field" placeholder="搜索…" value="" name="s" title="搜索：">
-        </form>
-        <h3 class="widget-title">分类目录</h3>    <ul>
-        <li class="cat-item cat-item-1"><a href="http://localhost/wordpress/?cat=1" title="查看未分类下的所有文章">未分类</a>
-        </li>
-        <li class="cat-item cat-item-4"><a href="http://localhost/wordpress/?cat=4" title="查看杂谈下的所有文章">杂谈</a>
-        </li>
-        <li class="cat-item cat-item-3"><a href="http://localhost/wordpress/?cat=3" title="查看生活下的所有文章">生活</a>
-        </li>
-        <li class="cat-item cat-item-5"><a href="http://localhost/wordpress/?cat=5" title="查看音乐下的所有文章">音乐</a>
-        </li>
-      </ul>
-    </div>
-    <div class="col-md-3">
-      <h3 class="widget-title">近期文章</h3>    <ul>
-      <li>
-        <a href="http://localhost/wordpress/?p=24">我喜欢的音乐</a>
-      </li>
-      <li>
-        <a href="http://localhost/wordpress/?p=6">你在烦恼什么</a>
-      </li>
-      <li>
-        <a href="http://localhost/wordpress/?p=11">我想，我们努力的又重复了一遍刚才的话。</a>
-      </li>
-      <li>
-        <a href="http://localhost/wordpress/?p=5">等到那一天,我足够优秀</a>
-      </li>
-      <li>
-        <a href="http://localhost/wordpress/?p=1">世界，你好！</a>
-      </li>
-    </ul>
-  </div>
-  <div class="col-md-3">
-    <h3 class="widget-title">近期评论</h3><ul id="recentcomments"><li class="recentcomments"><a href="http://wordpress.org/" rel="external nofollow" class="url">WordPress先生</a>发表在《<a href="http://localhost/wordpress/?p=1#comment-1">世界，你好！</a>》</li></ul>
-  </div>
-  <div class="col-md-3">
-    <h3 class="widget-title">文章归档</h3>    <ul>
-    <li><a href="http://localhost/wordpress/?m=201311">2013年十一月</a></li>
-  </ul>
-</div>
-
-</div>
-</div>
-</footer>
-
-
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/index.js"></script>
-</body>
-</html>
+<?php
+include 'tpl/footer.php';
+?>

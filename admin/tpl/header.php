@@ -272,6 +272,12 @@
                 </a>
             </li>
             <li>
+                <a href="config.php">
+                    <i class="fa fa-gear"></i>
+                    <span class="menu-text"> 网站配置 </span>
+                </a>
+            </li>
+            <li>
                 <a href="#">
                     <i class="fa fa-text-width"></i>
                     <span class="menu-text"> Typography </span>

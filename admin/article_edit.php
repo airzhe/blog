@@ -10,7 +10,7 @@ try{
             if(!empty($_POST)){
                 $title = isset($_POST['title'])?trim($_POST['title']):'';
                 $category = $_POST['category'];
-                $tags = isset($_POST['tags'])?trim($_POST['tags']):'';
+                $tags = isset($_POST['tags'])?str_replace('，',',',trim($_POST['tags'])):'';
                 $content = isset($_POST['content'])?trim($_POST['content']):'';
                 $datetime = $_POST['datetime']?strtotime(trim($_POST['datetime'])):time();
                 $hits = $_POST['hits']?(int)$_POST['hits']:100;
@@ -37,18 +37,26 @@ try{
                     'template'=>$template
                 );
 
+
                 if($_GET['id']){
                     //update
                     $original_data=$redis->hGetAll("article:$id");
-                    $update_data = array_diff($data,$original_data);
+                    $update_data = array_diff_assoc($data,$original_data);
                     $redis->hMset("article:$id",$update_data);
-                    success('编辑成功','article_list.php');
                 }else{
                     //insert
                     $redis->hMset("article:$id",$data);
                     $redis->rPush('article:list',$id);
-                    success('添加成功','article_list.php');
                 }
+
+                if($tags){
+                    $tagsList = explode(',',$tags);
+                    foreach($tagsList as $v){
+                        $redis->sAdd("article:$id:tags",$v);
+                        $redis->sAdd($v,$id);
+                    }
+                }
+                success('操作成功','article_list.php');
 
             }else{
                 throw new Exception('请求错误');
