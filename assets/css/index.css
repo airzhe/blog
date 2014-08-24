@@ -4,6 +4,7 @@
 .col-md-offset-3{margin-left:22%;}
 .col-md-6{width:56%;}
 .container{width:1120px;}
+.row{margin:0;}
 /*bootstrap end*/
 body{background: #fff;color:#141412;}
 ul li{list-style: none;}

@@ -57,8 +57,8 @@ try{
                         $new_archive = date('Ym',$data['datetime']);
                         if($original_archive !=  $new_archive){
                             $redis->srem($original_archive,$id);
-                            $redis-sadd("archive:$new_archive",$id);
-                            $redis->sadd("archive:list","archive:$new_archive");
+                            $redis->sadd("archive:$new_archive",$id);
+                            $redis->sadd("archive:list","$new_archive");
                         }
                     }
                     $redis->hMset("article:$id",$update_data);
@@ -68,9 +68,9 @@ try{
                     $redis->lPush('article:list',$id);
                     //建立文章归档
                     $archive = date('Ym',$data['datetime']);
-                    $redis-sadd("archive:$archive",$id);
+                    $redis->sadd("archive:$archive",$id);
                     //所有归档集合
-                    $redis->sadd("archive:list","archive:$archive");
+                    $redis->sadd("archive:list","$archive");
                     //category
                     $redis->lPush("category:$data[category].article_list",$id);
                 }

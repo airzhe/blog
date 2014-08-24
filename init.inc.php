@@ -5,6 +5,10 @@ $templates = array(
     '2'=>'format-audio'
 );
 
+function __autoload($clazz){
+    require __DIR__."/class/$clazz.php";
+}
+
 function success($msg,$url=null){
     $url=$url?"location.href='{$url}'":"window.history.go(-1)";
     $html=<<<HTML

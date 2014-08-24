@@ -28,7 +28,9 @@
             <div class="col-md-3">
                 <h3 class="widget-title">文章归档</h3>
                 <ul>
-                    <li><a href="http://localhost/wordpress/?m=201311">2013年十一月</a></li>
+                    <?php foreach($archive_list as $v):$year = substr($v,0,4);$month = substr($v,4,2)?>
+                        <li><a href="archive.php?m=<?=$v?>"><?=$year.'年'.$month.'月'?></a></li>
+                    <?php endforeach ?>
                 </ul>
             </div>
 
@@ -44,8 +46,6 @@
         $('.article.format-audio').each(function(index){
             var self = $(this);
             self.find('footer').html('').append($(this).find('.meta'));
-            self.find('.content').prepend($('<i class="fa fa-volume-up fa-4x"></i>'));
-            self.find('.content').find('embed').wrap("<div class='audio-content'></div>");
         })
     })
 </script>

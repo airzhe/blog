@@ -3,7 +3,7 @@ try{
     $config = $redis->hGetAll('config');
     $catgoryIds = $redis->sMembers('categoryIds');
     $recent_article_list = $redis->lRange('article:list',-5,5);
-//    $archive_list = $redis->
+    $archive_list = $redis->sort('archive:list',array('sort'=>'desc'));
 }catch (Exception $e){
     error($e->getMessage());
 }

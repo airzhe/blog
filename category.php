@@ -24,15 +24,18 @@ $article_list = $redis->lRange("category:$cid.article_list",0,-1);
                             <a href="category.php?cid=<?=$category_id?>"><i class="fa fa-folder-open"></i><?=$redis->get("category:$category_id:name")?></a>
                             <?php if($tags):?>
                                 <span class="tags-links"><a class="fa fa-tag"></a>
-                                    <?php foreach($tags as $v):?>
-                                        <a href="tag.php?tag=<?=$v?>" rel="tag" target="_blank"><?=$v?></a><span>,</span>
+                                    <?php foreach($tags as $_v):?>
+                                        <a href="tag.php?tag=<?=$_v?>" rel="tag" target="_blank"><?=$_v?></a><span>,</span>
                                     <?php endforeach?>
-                  </span>
+                                </span>
                             <?php endif ?>
                         </p>
                     </header>
                     <div class="content clearfix">
-                        <?=$article['content']?>
+                        <i class="fa fa-volume-up fa-4x"></i>
+                        <div <?=$templates[$article['template']]=='format-audio'?"class='audio-content'":'';?>>
+                            <?=$article['content']?>
+                        </div>
                     </div>
                     <footer class="meta">
                         <?php if(isset($article['comment']) && $article['comment']):?>
@@ -47,16 +50,6 @@ $article_list = $redis->lRange("category:$cid.article_list",0,-1);
             </div>
         </div>
     <?php endforeach ?>
-</div>
-<div>
-  <div class="navigation paging-navigation">
-    <div class="container">
-      <div class="col-md-6 col-md-offset-3">
-        <div class="nav-previous pull-left"><a href="/?paged=2"><span class="meta-nav">←</span> 早期文章</a></div>
-        <div class="nav-next pull-right"><a href="/?paged=1">较新文章 <span class="meta-nav">→</span></a></div>
-      </div>
-    </div>
-  </div>
 </div>
 <?php
 include 'tpl/footer.php';

@@ -43,7 +43,7 @@ if($config = $redis->hGetAll('config')){
             <div class="form-group">
                 <label for="category_page_size" class="col-sm-2 control-label">文章分页数：</label>
                 <div class="col-sm-6">
-                    <input type="test" class="form-control" id="category_page_size" name="category_page_size" value="<?=$config['category_page_size']?>" required="">
+                    <input type="test" class="form-control" id="page_size" name="page_size" value="<?=$config['page_size']?>" required="">
                 </div>
             </div>
             <div class="form-group">
