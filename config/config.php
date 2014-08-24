@@ -1,3 +1,3 @@
 <?php
 $redis = new Redis();
-$redis->connect('localhost',6379);
+$redis->connect('localhost',6380);
