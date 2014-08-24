@@ -77,7 +77,7 @@
       <file leaf-file-name="config.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/config/config.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="32" selection-start="58" selection-end="60" vertical-scroll-proportion="0.07042254" vertical-offset="0" max-vertical-offset="568">
+            <state line="2" column="32" selection-start="59" selection-end="60" vertical-scroll-proportion="0.07042254" vertical-offset="0" max-vertical-offset="568">
               <folding />
             </state>
           </provider>
@@ -627,7 +627,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/config/config.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="32" selection-start="58" selection-end="60" vertical-scroll-proportion="0.07042254" vertical-offset="0" max-vertical-offset="568">
+        <state line="2" column="32" selection-start="59" selection-end="60" vertical-scroll-proportion="0.07042254" vertical-offset="0" max-vertical-offset="568">
           <folding />
         </state>
       </provider>
