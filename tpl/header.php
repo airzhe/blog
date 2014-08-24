@@ -2,8 +2,10 @@
 try{
     $config = $redis->hGetAll('config');
     $catgoryIds = $redis->sMembers('categoryIds');
+    $recent_article_list = $redis->lRange('article:list',-5,5);
+//    $archive_list = $redis->
 }catch (Exception $e){
-    errpr($e->getMessage());
+    error($e->getMessage());
 }
 ?>
 <!DOCTYPE html>
@@ -30,9 +32,9 @@ try{
             <ul class="pull-left">
                 <li class="current-menu-item"><a href="./" >首页</a></li>
                 <?php foreach($catgoryIds as $v):?>
-                <li><a href="category.php?cid=<?=$v?>"><?=$redis->hget("category:$v",'category')?></a></li>
+                <li><a href="category.php?cid=<?=$v?>"><?=$redis->get("category:$v:name")?></a></li>
                 <?php endforeach ?>
-                <li><a href="about.html">关于我</a></li>
+                <li><a href="about.php">关于我</a></li>
             </ul>
             <form method="get" class="search-form pull-right" action="search.html">
                 <input type="search" class="search-field" placeholder="搜索…" value="" name="s" title="搜索：">

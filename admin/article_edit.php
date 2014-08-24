@@ -42,20 +42,47 @@ try{
                     //update
                     $original_data=$redis->hGetAll("article:$id");
                     $update_data = array_diff_assoc($data,$original_data);
+                    //分类
+                    if(isset($update_data['category'])){
+                        $original_category_id = $redis->hGet("article:$id",'category');
+                        //del
+                        $new_category_id = $update_data['category'];
+                        $redis->lRem("category:$original_category_id.article_list",$id,0);
+                        //add
+                        $redis->lPush("category:$new_category_id.article_list",$id);
+                    }
+                    //归档
+                    if(isset($update_data['datetime'])){
+                        $original_archive = date('Ym',$redis->hGet("article:$id",'datetime'));
+                        $new_archive = date('Ym',$data['datetime']);
+                        if($original_archive !=  $new_archive){
+                            $redis->srem($original_archive,$id);
+                            $redis-sadd("archive:$new_archive",$id);
+                            $redis->sadd("archive:list","archive:$new_archive");
+                        }
+                    }
                     $redis->hMset("article:$id",$update_data);
                 }else{
                     //insert
                     $redis->hMset("article:$id",$data);
-                    $redis->rPush('article:list',$id);
+                    $redis->lPush('article:list',$id);
+                    //建立文章归档
+                    $archive = date('Ym',$data['datetime']);
+                    $redis-sadd("archive:$archive",$id);
+                    //所有归档集合
+                    $redis->sadd("archive:list","archive:$archive");
+                    //category
+                    $redis->lPush("category:$data[category].article_list",$id);
                 }
 
                 if($tags){
                     $tagsList = explode(',',$tags);
                     foreach($tagsList as $v){
                         $redis->sAdd("article:$id:tags",$v);
-                        $redis->sAdd($v,$id);
+                        $redis->sAdd("tag:$v.article_list",$id);
                     }
                 }
+
                 success('操作成功','article_list.php');
 
             }else{

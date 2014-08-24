@@ -40,12 +40,12 @@ $categoryArr = $redis->sMembers('categoryIds');
                         </tr>
                         </thead>
                         <tbody>
-                        <?php foreach ($categoryArr as $k=>$v): $category=$redis->hGetAll("category:$v");?>
+                        <?php foreach ($categoryArr as $k=>$v): $category=$redis->get("category:$v:name");?>
                             <tr>
-                                <td><?=$category['category']?></td>
+                                <td><?=$category?></td>
                                 <td>
-                                    <a href="category_edit.php?action=update&id=<?=$category['id']?>"><i class="fa fa-edit"> </i></a>
-                                    <a href="category_edit.php?action=del&id=<?=$category['id']?>" onclick="return confirm('确定要删除吗')"><i class="fa fa-trash-o"></i></a>
+                                    <a href="#"><i class="fa fa-edit"> </i></a>
+                                    <a href="category_edit.php?action=del&id=<?=$v?>" onclick="return confirm('确定要删除吗')"><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                         <?php endforeach?>

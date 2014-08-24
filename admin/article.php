@@ -44,8 +44,8 @@
 
                     <div class="col-sm-2">
                         <select class="form-control" name="category" id="category" required>
-                            <?php foreach ($categoryArr as $k=>$v): $category=$redis->hGetAll("category:$v");?>
-                            <option value="<?=$category['id']?>" <?php if($category['id']==$article['category']) echo 'selected';?> ><?=$category['category']?></option>
+                            <?php foreach ($categoryArr as $k=>$v): ?>
+                            <option value="<?=$v?>" <?php if($v==$article['category']) echo 'selected';?> ><?=$redis->get("category:$v:name")?></option>
                             <?php endforeach?>
                         </select>
                     </div>

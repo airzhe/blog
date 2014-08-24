@@ -15,11 +15,11 @@ $article_list = $redis->lRange('article:list',0,-1);
           <h1><a href="article.php?id=<?=$v?>"><?=$article['title']?></a></h1>
           <p class="meta">
               <a href=""><i class="fa fa-clock-o"></i><?=date('Y年m月d日',$article['datetime'])?></a>
-              <a href="category.php?cid=<?=$category_id?>"><i class="fa fa-folder-open"></i><?=$redis->hget("category:$category_id",'category')?></a>
+              <a href="category.php?cid=<?=$category_id?>"><i class="fa fa-folder-open"></i><?=$redis->get("category:$category_id:name")?></a>
               <?php if($tags):?>
                   <span class="tags-links"><a class="fa fa-tag"></a>
                     <?php foreach($tags as $v):?>
-                        <a href="tag.php?tag=<?=$v?>" rel="tag"><?=$v?></a><span>,</span>
+                        <a href="tag.php?tag=<?=$v?>" rel="tag" target="_blank"><?=$v?></a><span>,</span>
                     <?php endforeach?>
                   </span>
               <?php endif ?>

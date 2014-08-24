@@ -35,9 +35,9 @@ $articleIds = $redis->lRange('article:list',0,-1);
                 <tbody>
                 <?php foreach($articleIds as $v): $article = $redis->hGetAll("article:$v")?>
                     <tr>
-                        <td><a href=""><?=$article['title']?></a></td>
-                        <td><a href=""><?=date('Y-m-d H:i',$article['datetime'])?></a></td>
-                        <td><a href=""><?=$article['hits']?></a></td>
+                        <td><a href="../article.php?id=<?=$article['id']?>" target="_blank"><?=$article['title']?></a></td>
+                        <td><?=date('Y-m-d H:i',$article['datetime'])?></td>
+                        <td><?=$article['hits']?></td>
                         <td>
                             <a href="article.php?action=edit&id=<?=$article['id']?>"><i class="fa fa-edit"> </i></a>
                             <a href="article_edit.php?action=del&id=<?=$article['id']?>" onclick="return confirm('确定要删除吗')"><i class="fa fa-trash-o"></i></a>

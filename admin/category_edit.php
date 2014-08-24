@@ -10,7 +10,7 @@ try{
             $category = isset($_POST['category'])?trim($_POST['category']):'';
             if($category){
                 $id = $redis->incr('category:count');
-                $redis->hMset("category:$id",array('category'=>$category,'id'=>$id));
+                $redis->set("category:$id:name",$category);
                 $redis->sAdd('categoryIds',$id);
                 success('分类添加成功');
             }else{
