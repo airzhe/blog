@@ -47,9 +47,9 @@ try{
                         $original_category_id = $redis->hGet("article:$id",'category');
                         //del
                         $new_category_id = $update_data['category'];
-                        $redis->lRem("category:$original_category_id.article_list",$id,0);
+                        $redis->lRem("category:$original_category_id:article_list",$id,0);
                         //add
-                        $redis->lPush("category:$new_category_id.article_list",$id);
+                        $redis->lPush("category:$new_category_id:article_list",$id);
                     }
                     //归档
                     if(isset($update_data['datetime'])){
@@ -72,14 +72,15 @@ try{
                     //所有归档集合
                     $redis->sadd("archive:list","$archive");
                     //category
-                    $redis->lPush("category:$data[category].article_list",$id);
+                    $redis->lPush("category:$data[category]:article_list",$id);
                 }
 
                 if($tags){
                     $tagsList = explode(',',$tags);
                     foreach($tagsList as $v){
+                        $v = trim($v);
                         $redis->sAdd("article:$id:tags",$v);
-                        $redis->sAdd("tag:$v.article_list",$id);
+                        $redis->sAdd("tag:$v:article_list",$id);
                     }
                 }
 
@@ -92,10 +93,28 @@ try{
         case 'del':
             $id = isset($_GET['id'])?trim($_GET['id']):'';
             if($id){
-                $redis->multi();
+                $article = $redis->hGetAll("article:$id");
+                //category
+                $category_id = $article['category'];
+                $redis->lRem("category:$category_id:article_list",$id,0);
+                //archive
+                $archive = date(Ym, $article['datetime']);
+                $redis->sRem("archive:$archive",$id);
+                if(!$redis->sCard("archive:$archive")){
+                    $redis->del("archive:$archive");
+                    $redis->sRem("archive:list",$archive);
+                }
+                //tags
+                $tags = $redis->sMembers("article:$id:tags");
+                $redis->del("article:$id:tags");
+                foreach($tags as $v){
+                    $redis->sRem("tag:$v:article_list",$id);
+                    if(!$redis->sCard("tag:$v:article_list")){
+                        $redis->del("tag:$v:article_list");
+                    }
+                }
                 $redis->del("article:$id");
                 $redis->lRem('article:list',$id,0);
-                $redis->exec();
                 success('删除成功');
             }else{
                 throw new Exception('请求错误');

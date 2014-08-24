@@ -3,7 +3,7 @@ require 'init.inc.php';
 require 'tpl/header.php';
 $cid  = isset($_GET['cid'])?(int)$_GET['cid']:'';
 if(!$cid) reuturn;
-$article_list = $redis->lRange("category:$cid.article_list",0,-1);
+$article_list = $redis->lRange("category:$cid:article_list",0,-1);
 ?>
 <header class="archive-header">
 <h1 class="archive-title">分类目录归档：<?=$redis->get("category:$cid:name")?></h1>
@@ -37,15 +37,6 @@ $article_list = $redis->lRange("category:$cid.article_list",0,-1);
                             <?=$article['content']?>
                         </div>
                     </div>
-                    <footer class="meta">
-                        <?php if(isset($article['comment']) && $article['comment']):?>
-                            <div class="comments-link">
-                                <a href="article.php#comments" title="《世界，你好！》上的评论"><i class="fa fa-comment"></i> 有一条评论</a>
-                            </div>
-                        <?php else:?>
-                            <a href="article.php?id=<?=$v?>#respond"><i class="fa fa-comment"> </i><span class="leave-reply">发表回复</span></a>
-                        <?php endif ?>
-                    </footer>
                 </div>
             </div>
         </div>

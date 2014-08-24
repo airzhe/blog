@@ -2,8 +2,21 @@
 require 'init.inc.php';
 require 'tpl/header.php';
 $id = isset($_GET['id'])?(int)$_GET['id']:'';
+if(!id) return;
 $article = $redis->hGetAll("article:$id");
 $redis->hIncrBy("article:$id",'hits',1);
+
+//pre next
+$article_list = $redis->lRange('article:list',0,-1);
+$index = array_search($id,$article_list);
+if($index != 0){
+    $prev_article_id = $article_list[$index-1];
+}
+if($index != (count($article_list)-1)){
+    $next_article_id = $article_list[$index+1];
+}
+//comment
+$comment_list = $redis->lrange("article:$id:comment",0,-1);
 ?>
 <div class="article row <?=$templates[$article['template']]?>">
     <div class="container">
@@ -28,54 +41,68 @@ $redis->hIncrBy("article:$id",'hits',1);
                     <?=$article['content']?>
                 </div>
             </div>
-            <footer class="meta">
-                <?php if(isset($article['comment']) && $article['comment']):?>
-                    <div class="comments-link">
-                        <a href="article.php#comments" title="《世界，你好！》上的评论"><i class="fa fa-comment"></i> 有一条评论</a>
-                    </div>
-                <?php else:?>
-                    <a href="article.php?id=<?=$v?>#respond"><i class="fa fa-comment"> </i><span class="leave-reply">发表回复</span></a>
-                <?php endif ?>
-            </footer>
         </div>
     </div>
 </div>
   <div class="navigation post-navigation">
     <div class="container">
-      <div class="nav-previous pull-left"><a href="/?paged=2"><span class="meta-nav">←</span>  世界，你好！</a></div>
-      <div class="nav-next pull-right"><a href="/?paged=1">我想，我们努力的又重复了一遍刚才的话。  <span class="meta-nav">→</span></a></div>
-    </div>
+      <?php if(isset($prev_article_id)):?>
+        <div class="nav-previous pull-left"><a href="article.php?id=<?=$prev_article_id?>"><span class="meta-nav">←</span>  <?=$redis->hGet("article:$prev_article_id",'title')?></a></div>
+      <?php endif?>
+      <?php if(isset($next_article_id)):?>
+        <div class="nav-next pull-right"><a href="article.php?id=<?=$next_article_id?>"><?=$redis->hGet("article:$next_article_id",'title')?>  <span class="meta-nav">→</span></a></div>
+      <?php endif?>
+     </div>
   </div>
   <div id="comments" class="comments-area row">
    <div class="container">
-    <div class="col-md-6 col-md-offset-3">
-      <h2 class="comments-title">《<span>世界，你好！</span>》有1个想法</h2>
-      <ol class="comment-list row">
-        <div class="col-md-3">
-          <img src="images/bg4.jpg" alt="" style="width:74px;height:74px;">
-          WordPress先生 
+    <?php if(count($comment_list)):?>
+        <div class="col-md-6 col-md-offset-3">
+            <h2 class="comments-title">《<span><?=$article['title']?></span>》有<?=count($comment_list)?>个想法</h2>
+            <?php foreach($comment_list as $v):$comment = unserialize($v);?>
+                <div class="comment-list row">
+                    <div class="col-md-3">
+                      <img src="http://www.gravatar.com/avatar/<?=md5($comment['email'])?>.jpg?s=74" alt="" style="width:74px;height:74px;">
+                        <?=$comment['author']?>
+                    </div>
+                    <div class="col-md-9">
+                        <p><?=date('Y年m月d日 H:i',$comment['datetime'])?></p>
+                        <p><?=$comment['content']?></p>
+<!--                        <p><i class="fa fa-reply"></i> 回复</p>-->
+                    </div>
+                </div><!-- .comment-list -->
+            <?endforeach?>
         </div>
-        <div class="col-md-9">
-         <p>2013年11月30日下午3:21</p>
-         <p>您好，这是一条评论。
-          要删除评论，请先登录，然后再查看这篇文章的评论。登录后您可以看到编辑或者删除评论的选项。</p>
-        <p><i class="fa fa-reply"></i> 回复</p>
-        </div>
-      </ol><!-- .comment-list -->
-    </div>
+      </div>
+    <?php endif?>
   </div>
   <div  id="respond">
     <div class="container">
       <div class="comment-respond col-md-6 col-md-offset-3">
         <h3 id="reply-title" class="comment-reply-title">发表评论 </h3>
-        <form action="http://localhost/wordpress/wp-comments-post.php" method="post" id="commentform" class="comment-form">
-          <p class="comment-notes">电子邮件地址不会被公开。 必填项已用<span class="required">*</span>标注</p>              
-          <p class="comment-form-author"><label for="author">姓名 <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" aria-required="true"></p>
-          <p class="comment-form-email"><label for="email">电子邮件 <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" aria-required="true"></p>
-          <p class="comment-form-url"><label for="url">站点</label> <input id="url" name="url" type="url" value="" size="30"></p>
-          <p class="comment-form-comment"><label for="comment">评论</label> <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></p>
+        <form action="comment.php" method="post" id="commentform" class="comment-form">
+          <p class="comment-notes">
+              电子邮件地址不会被公开。 必填项已用<span class="required">*</span>标注
+              <input name="id" value="<?=$id?>" type="hidden"/>
+          </p>
+          <p class="comment-form-author">
+              <label for="author">姓名 <span class="required">*</span></label>
+              <input id="author" name="author" type="text" required >
+          </p>
+          <p class="comment-form-email">
+              <label for="email">电子邮件 <span class="required">*</span></label>
+              <input id="email" name="email" type="email" required>
+          </p>
+          <p class="comment-form-url">
+              <label for="url">站点</label>
+              <input id="url" name="url" type="url">
+          </p>
+          <p class="comment-form-comment">
+              <label for="comment">评论</label>
+              <textarea id="comment" name="content" cols="45" rows="8" required></textarea>
+          </p>
           <p class="form-submit">
-            <input name="submit" type="submit" id="submit" value="发表评论">
+              <button id="submit">发表评论</button>
           </p>
         </form>
       </div><!-- #respond -->

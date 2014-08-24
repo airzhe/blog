@@ -23,7 +23,7 @@
                 </ul>
             </div>
             <div class="col-md-3">
-                <h3 class="widget-title">近期评论</h3><ul id="recentcomments"><li class="recentcomments"><a href="http://wordpress.org/" rel="external nofollow" class="url">WordPress先生</a>发表在《<a href="http://localhost/wordpress/?p=1#comment-1">世界，你好！</a>》</li></ul>
+                <h3 class="widget-title">近期评论</h3><ul id="recentcomments"><li class="recentcomments"><a href=#" class="url">WordPress先生</a>发表在《<a href="#">世界，你好！</a>》</li></ul>
             </div>
             <div class="col-md-3">
                 <h3 class="widget-title">文章归档</h3>

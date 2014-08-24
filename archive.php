@@ -40,15 +40,6 @@ $article_list = $redis->sort("archive:$m",array('by'=>'article:*->datetime','sor
                             <?=$article['content']?>
                         </div>
                     </div>
-                    <footer class="meta">
-                        <?php if(isset($article['comment']) && $article['comment']):?>
-                            <div class="comments-link">
-                                <a href="article.php#comments" title="《世界，你好！》上的评论"><i class="fa fa-comment"></i> 有一条评论</a>
-                            </div>
-                        <?php else:?>
-                            <a href="article.php?id=<?=$v?>#respond"><i class="fa fa-comment"> </i><span class="leave-reply">发表回复</span></a>
-                        <?php endif ?>
-                    </footer>
                 </div>
             </div>
         </div>

@@ -19,6 +19,7 @@ try{
     $article = $redis->hGetAll("article:$v");
     $category_id = $article['category'];
     $tags = $redis->sMembers("article:$v:tags");
+    $article['comment'] = $redis->llen("article:$v:comment");
 ?>
 <div class="article row <?=$templates[$article['template']]?>">
     <div class="container">
@@ -46,7 +47,7 @@ try{
         <footer class="meta">
             <?php if(isset($article['comment']) && $article['comment']):?>
                 <div class="comments-link">
-                    <a href="article.php#comments" title="《世界，你好！》上的评论"><i class="fa fa-comment"></i> 有一条评论</a>
+                    <a href="article.php?id=<?=$v?>#comments" title="<?=$article['title']?>上的评论"><i class="fa fa-comment"></i> 有<?=$article['comment']?>条评论</a>
                 </div>
             <?php else:?>
               <a href="article.php?id=<?=$v?>#respond"><i class="fa fa-comment"> </i><span class="leave-reply">发表回复</span></a>
