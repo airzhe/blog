@@ -35,7 +35,7 @@
         </div>
     </div>
 </footer>
-<script src="js/jquery.min.js"></script>
+<script src="assets/js/jquery.min.js"></script>
 <script>
     $(document).ready(function(){
         $('.tags-links').each(function(){
@@ -49,7 +49,7 @@
         })
     })
 </script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/index.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/index.js"></script>
 </body>
 </html>

@@ -79,6 +79,11 @@ transition:width 400ms ease,background 400ms ease;
 .format-audio {
 	background-color: #db572f;
 }
+.article .fa-volume-up{display: none;}
+.format-audio .fa-volume-up{
+    display:inline-block;
+    float:left;
+}
 .audio-content{
 	background: url('../images/dotted-line.png') repeat-y left top;
 	background-size: 4px 4px;
