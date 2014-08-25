@@ -158,3 +158,19 @@ transition:width 400ms ease,background 400ms ease;
 #site-footer h3{font-style:italic; font-size:20px;margin-bottom:10px;}
 #site-footer li{padding:5px 0;}
 #site-footer a{color:#e6402a;}
+
+/*返回顶部*/
+#gotop{
+    width:36px;
+    height:65px;
+    background: url(../images/Top.png) no-repeat;
+    cursor: pointer;
+    left:50%;
+    margin-left:550px;
+    bottom:100px;
+    position: fixed;
+    display: none;
+}
+#gotop:hover{
+    background-position: 0 -65px;
+}

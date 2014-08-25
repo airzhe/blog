@@ -33,10 +33,10 @@
                     <?php endforeach ?>
                 </ul>
             </div>
-
         </div>
     </div>
 </footer>
+<a href ="javascript:void(0);" id="gotop" title="返回顶部" class="_hide"></a>
 <script src="assets/js/jquery.min.js"></script>
 <script>
     $(document).ready(function(){
@@ -46,6 +46,16 @@
         $('.article.format-audio').each(function(index){
             var self = $(this);
             self.find('footer').html('').append($(this).find('.meta'));
+        })
+        $(document).scroll(function(){
+            if($(this).scrollTop()>800){
+                $('#gotop').fadeIn();
+            }else{
+                $('#gotop').fadeOut();
+            }
+        })
+        $('#gotop').on('click',function(){
+            $('html,body').animate({scrollTop:'0px'},800);
         })
     })
 </script>
