@@ -70,7 +70,7 @@ try{
                     $archive = date('Ym',$data['datetime']);
                     $redis->sadd("archive:$archive",$id);
                     //所有归档集合
-                    $redis->sadd("archive:list","$archive");
+                    $redis->sadd("archive:list",$archive);
                     //category
                     $redis->lPush("category:$data[category]:article_list",$id);
                 }
