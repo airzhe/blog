@@ -48,7 +48,7 @@
             self.find('footer').html('').append($(this).find('.meta'));
         })
         $(document).scroll(function(){
-            if($(this).scrollTop()>800){
+            if($(this).scrollTop()>600){
                 $('#gotop').fadeIn();
             }else{
                 $('#gotop').fadeOut();
