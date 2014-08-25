@@ -15,6 +15,10 @@ if($index != 0){
 if($index != (count($article_list)-1)){
     $next_article_id = $article_list[$index+1];
 }
+
+//tag
+$tags = $redis->sMembers("article:$id:tags");
+
 //comment
 $comment_list = $redis->lrange("article:$id:comment",0,-1);
 ?>
