@@ -254,6 +254,12 @@
                 </a>
             </li>
             <li>
+                <a href="leaderboard.php">
+                    <i class="fa fa-sort-numeric-asc"></i>
+                    <span class="menu-text"> 点击排行榜 </span>
+                </a>
+            </li>
+            <li>
                 <a href="category.php">
                     <i class="fa fa-bars"></i>
                     <span class="menu-text"> 分类管理 </span>

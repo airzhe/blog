@@ -3,8 +3,9 @@ require 'init.inc.php';
 require 'tpl/header.php';
 $id = isset($_GET['id'])?(int)$_GET['id']:'';
 if(!id) return;
-$article = $redis->hGetAll("article:$id");
 $redis->hIncrBy("article:$id",'hits',1);
+$article = $redis->hGetAll("article:$id");
+$redis->zAdd('article:leaderboard',$article['hits'],$id);
 
 //pre next
 $article_list = $redis->lRange('article:list',0,-1);
