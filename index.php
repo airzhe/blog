@@ -12,7 +12,19 @@ try{
     $article_list = $redis->lRange('article:list',$offset,$offset+$page_size-1);
     //$article_list = $redis->sort("article:list",array('by'=>'article:*->datetime','sort'=>'desc'));
 }catch (Exception $e){
-    error($e->getMessage());
+    echo $e->getMessage();
+    $mysql = new mysqli('localhost','root','purple','blog');
+    $mysql->query('set names utf8');
+    $result = $mysql->query('select * from article');
+    while($row = $result->fetch_assoc()){
+       $row['datetime'] = date('Y-m-d H:i:s',$row['datetime']);
+       echo "<h1>$row[title]</h1>";
+       echo "<p>$row[datetime]</p>";
+       echo  $row[content];
+       echo "<hr/>";
+    }
+    die;
+//    error($e->getMessage());
 }
 ?>
 <?php foreach($article_list as $v):

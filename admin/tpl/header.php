@@ -284,6 +284,12 @@
                 </a>
             </li>
             <li>
+                <a href="data_backup.php">
+                    <i class="fa fa-database"></i>
+                    <span class="menu-text"> mysql备份 </span>
+                </a>
+            </li>
+            <li>
                 <a href="#">
                     <i class="fa fa-text-width"></i>
                     <span class="menu-text"> Typography </span>
